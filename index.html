@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Кофе FAQ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>☕ Как правильно заваривать кофе</h1>
+
+    <div class="faq-item">
+      <button class="faq-question">Какой помол использовать?</button>
+      <div class="faq-answer">Для турки — мелкий, для френч-пресса — грубый, для эспрессо — средний.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">Сколько грамм кофе на 1 чашку?</button>
+      <div class="faq-answer">Около 10–12 г на 180–200 мл воды.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">Температура воды?</button>
+      <div class="faq-answer">Идеально — 92–96°C. Не кипяток.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question">Сколько времени заваривать?</button>
+      <div class="faq-answer">Френч-пресс — 4 мин, воронка — 2:30 мин, эспрессо — ~25 сек.</div>
+    </div>
+  </div>
+
+  <script>
+    const tg = window.Telegram.WebApp;
+    tg.expand();
+
+    const questions = document.querySelectorAll(".faq-question");
+    questions.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const answer = btn.nextElementSibling;
+        answer.classList.toggle("visible");
+      });
+    });
+  </script>
+</body>
+</html>
