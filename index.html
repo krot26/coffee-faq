@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>Кофе FAQ</title>
+  <title>Coffee FAQ</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <link rel="stylesheet" href="styles.css">
@@ -12,23 +13,26 @@
     <h1>☕ Как правильно заваривать кофе</h1>
 
     <div class="faq-item">
-      <button class="faq-question">Какой помол использовать?</button>
-      <div class="faq-answer">Для турки — мелкий, для френч-пресса — грубый, для эспрессо — средний.</div>
-    </div>
-
-    <div class="faq-item">
-      <button class="faq-question">Сколько грамм кофе на 1 чашку?</button>
-      <div class="faq-answer">Около 10–12 г на 180–200 мл воды.</div>
-    </div>
-
-    <div class="faq-item">
       <button class="faq-question">Температура воды?</button>
       <div class="faq-answer">Идеально — 92–96°C. Не кипяток.</div>
     </div>
 
     <div class="faq-item">
-      <button class="faq-question">Сколько времени заваривать?</button>
-      <div class="faq-answer">Френч-пресс — 4 мин, воронка — 2:30 мин, эспрессо — ~25 сек.</div>
+      <button class="faq-question">Сколько грамм кофе на чашку?</button>
+      <div class="faq-answer">10–12 г на 180–200 мл воды.</div>
+    </div>
+
+    <div class="feedback-toggle">
+      <button id="toggle-feedback">У вас есть вопрос?</button>
+      <div id="feedback-form">
+        <label for="question">Ваш вопрос:</label>
+        <textarea id="question" rows="4" placeholder="Введите ваш вопрос..."></textarea>
+
+        <label for="username">Ваш Telegram:</label>
+        <input type="text" id="username" readonly />
+
+        <button id="send-question">Отправить</button>
+      </div>
     </div>
   </div>
 
@@ -36,12 +40,36 @@
     const tg = window.Telegram.WebApp;
     tg.expand();
 
-    const questions = document.querySelectorAll(".faq-question");
-    questions.forEach(btn => {
+    document.querySelectorAll(".faq-question").forEach(btn => {
       btn.addEventListener("click", () => {
-        const answer = btn.nextElementSibling;
-        answer.classList.toggle("visible");
+        btn.nextElementSibling.classList.toggle("visible");
       });
+    });
+
+    const feedbackBtn = document.getElementById("toggle-feedback");
+    const feedbackForm = document.getElementById("feedback-form");
+    feedbackBtn.addEventListener("click", () => {
+      feedbackForm.classList.toggle("visible");
+    });
+
+    const usernameInput = document.getElementById("username");
+    const tgUser = tg.initDataUnsafe.user;
+    if (tgUser && tgUser.username) {
+      usernameInput.value = "@" + tgUser.username;
+    } else {
+      usernameInput.value = "Неизвестен";
+    }
+
+    document.getElementById("send-question").addEventListener("click", () => {
+      const question = document.getElementById("question").value.trim();
+      const username = document.getElementById("username").value.trim();
+      if (question.length > 3) {
+        const payload = { question, username };
+        tg.sendData(JSON.stringify(payload));
+        tg.close();
+      } else {
+        alert("Пожалуйста, введите корректный вопрос.");
+      }
     });
   </script>
 </body>

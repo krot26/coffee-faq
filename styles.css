@@ -1,3 +1,4 @@
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
@@ -49,4 +50,53 @@ h1 {
 
 .faq-answer.visible {
   display: block;
+}
+
+.feedback-toggle {
+  margin-top: 30px;
+}
+
+#toggle-feedback {
+  width: 100%;
+  padding: 12px;
+  font-size: 15px;
+  background: #ffeedc;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+#feedback-form {
+  display: none;
+  margin-top: 12px;
+  background: #fff;
+  padding: 12px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+#feedback-form.visible {
+  display: block;
+}
+
+#feedback-form textarea,
+#feedback-form input {
+  width: 100%;
+  margin-top: 8px;
+  margin-bottom: 12px;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+#send-question {
+  width: 100%;
+  padding: 12px;
+  background: #0077cc;
+  color: white;
+  font-size: 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
 }
